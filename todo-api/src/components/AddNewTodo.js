@@ -1,6 +1,5 @@
-import { useState } from "react";
-import { Button } from "@mui/material";
 
+import { Button } from "@mui/material";
 import {Modal} from "@mui/material";
 import {Box} from "@mui/material";
 
@@ -17,15 +16,15 @@ const style = {
   zIndex: 1000,
 };
 
-export const AddNewTodo = ({children}) => {
-    const [open, setOpen] = useState(false);
+export const AddNewTodo = ({children, onOpen, onClose, isOpen}) => {
+
     return (
         <Box marginBottom={4}>
-            <Button variant="contained" onClick={()=> setOpen(true)}>
+            <Button variant="contained" onClick={onOpen}>
                 Add new Todo
             </Button>
 
-            <Modal open={open} onClose={() => setOpen(false)}>
+            <Modal open={isOpen} onClose={onClose}>
                 <Box sx={style}>{children}</Box>
             </Modal>
         </Box>

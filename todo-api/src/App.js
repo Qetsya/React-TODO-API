@@ -1,43 +1,34 @@
-import { useEffect, useState } from "react";
 
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
-
 
 import { Heading } from "./components/Heading";
 import {TodoCard} from "./components/TodoCard";
 import { TodoForm } from "./components/TodoForm";
 import { AddNewTodo } from "./components/AddNewTodo";
 
-import { getList } from "./services/getList";
-
-
-
+import { useList } from "./components/hooks/useList";
+import { useModal } from "./components/hooks/useModal";
 
 function App() {
-  const [list, setList] = useState([]);
-
-useEffect(() => {
-  getList().then((data)=>{
-    setList(data.documents);
-  });
-}, []);
-
+const {list, reloadData} = useList();
+const {openModal, open, close} = useModal();
 
   return (
     <div className="App">
       <CssBaseline />
       <Container maxWidth="sm">
         <Heading />
-        <AddNewTodo>
-          <TodoForm />
+        <AddNewTodo onOpen={open} onClose={close} isOpen={openModal}>
+          <TodoForm onSubmit={reloadData} onClose={close}/>
         </AddNewTodo>
         {list.map((item) => (
           <TodoCard
           key={item._id}
           id={item._id}
           title={item.title}
-          description={item.description}/>
+          description={item.description}
+          onDelete={reloadData}/>
         ))}
       </Container>
     </div>
