@@ -13,8 +13,9 @@ import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDelete } from "./hooks/useDelete";
 import { useUpdate } from "./hooks/useUpdate";
+import EditIcon from '@mui/icons-material/Edit';
 
-export const TodoCard = ({ title, description, id, onReload, completed }) => {
+export const TodoCard = ({ title, description, id, onReload, completed, onEdit }) => {
   const { openDeleteDialog, closeDeleteDialog, handleDelete, isOpen } =
     useDelete(id, onReload);
 
@@ -50,6 +51,15 @@ export const TodoCard = ({ title, description, id, onReload, completed }) => {
               >
                 Incomplete
               </Button>)}
+            <Button
+              size="small"
+              variant="contained"
+              color="secondary"
+              startIcon={<EditIcon />}
+              onClick={() => onEdit?.()}
+            >
+              Edit
+            </Button>
             <Button
               size="small"
               variant="contained"
