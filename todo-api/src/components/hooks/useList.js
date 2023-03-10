@@ -4,18 +4,31 @@ import { getList } from "../../services/getList";
 export const useList = () => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState();
 
-  const handleLoad = async () => {
+  const handleInitialLoad = async () => {
     setLoading(true);
-    const data = await getList();
+    try {
+      const data = await getList();
+      setList(data.documents);
+    } catch (_) {
+      setError("Could not load Todo list. Please reload the page");
+    }
     setLoading(false);
-    setList(data.documents);
-    //no return value
   };
 
+  const handleLoad = async () => {
+    try {
+    const data = await getList();
+    setList(data.documents);
+  } catch (_) {
+    setError("Could not reload Todo list. Please reload the page");
+  }
+};
+
   useEffect(() => {
-    handleLoad(); //Promise<undefined>
+    handleInitialLoad(); //Promise<undefined>
   }, []);
 
-  return { list, reloadData: handleLoad, loading };
+  return { list, reloadData: handleLoad, loading, error };
 };

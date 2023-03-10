@@ -13,13 +13,33 @@ import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDelete } from "./hooks/useDelete";
 import { useUpdate } from "./hooks/useUpdate";
-import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from "@mui/icons-material/Edit";
 
-export const TodoCard = ({ title, description, id, onReload, completed, onEdit }) => {
+export const TodoCard = ({
+  title,
+  description,
+  id,
+  onReload,
+  completed,
+  onEdit,
+  onError,
+}) => {
+  const handleDeleteError = () => {
+    onError(
+      `Could not delete the task by the name of "${title}".`
+    );
+  }
   const { openDeleteDialog, closeDeleteDialog, handleDelete, isOpen } =
-    useDelete(id, onReload);
+    useDelete(id, onReload, handleDeleteError);
 
-  const { onComplete, onIncomplete } = useUpdate({ id, title, description, completed, onReload });
+  const { onComplete, onIncomplete } = useUpdate({
+    id,
+    title,
+    description,
+    completed,
+    onReload,
+    onError,
+  });
 
   return (
     <Accordion>
@@ -28,21 +48,32 @@ export const TodoCard = ({ title, description, id, onReload, completed, onEdit }
         aria-controls={id}
         id={id}
       >
-        <Typography fontWeight="bold" sx={{
-          textDecoration: completed ? "line-through" : "none",
-          color: completed ? "grey" : "black",
-          textDecorationThickness: "2px"
-        }}>{title}</Typography>
+        <Typography
+          fontWeight="bold"
+          sx={{
+            textDecoration: completed ? "line-through" : "none",
+            color: completed ? "grey" : "black",
+            textDecorationThickness: "2px",
+          }}
+        >
+          {title}
+        </Typography>
       </AccordionSummary>
       <AccordionDetails>
         <Stack direction="column" gap={2} alignItems="self-start">
           <Typography>{description}</Typography>
           <Stack direction="row" gap={2}>
-            {!completed ?
-              (<Button size="small" variant="contained" startIcon={<CheckIcon />} onClick={onComplete}>
+            {!completed ? (
+              <Button
+                size="small"
+                variant="contained"
+                startIcon={<CheckIcon />}
+                onClick={onComplete}
+              >
                 Complete
-              </Button>) :
-              (<Button
+              </Button>
+            ) : (
+              <Button
                 size="small"
                 variant="contained"
                 color="secondary"
@@ -50,13 +81,14 @@ export const TodoCard = ({ title, description, id, onReload, completed, onEdit }
                 onClick={onIncomplete}
               >
                 Incomplete
-              </Button>)}
+              </Button>
+            )}
             <Button
               size="small"
               variant="contained"
               color="secondary"
               startIcon={<EditIcon />}
-              onClick={() => onEdit?.()}
+              onClick={onEdit}
             >
               Edit
             </Button>

@@ -7,5 +7,5 @@ export const updateTodo = (todo) => {
         body: JSON.stringify(todo)
     })
         .then((response) => response.json())
-        .catch(console.error)
+        // .catch(console.error)
 };
