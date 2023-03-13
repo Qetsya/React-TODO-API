@@ -9,7 +9,7 @@ import { AddNewTodo } from "./components/AddNewTodo";
 import { useList } from "./components/hooks/useList";
 import { useModal } from "./components/hooks/useModal";
 import { TodoModal } from "./components/TodoModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { TodoSkeleton } from "./components/TodoSkeleton";
 import { Fragment } from "react";
@@ -24,8 +24,18 @@ function App() {
   const [listErrors, setListErrors] = useState([]);
 
   const addListError = (errorMessage) => {
-    setListErrors([...listErrors, errorMessage]);
+    setListErrors((currentListErrors) => [...currentListErrors, errorMessage]);
   };
+
+  useEffect(() => {
+   if (!listErrors.length) {
+    return;
+   }
+   const clearFirstError = () => {
+    setListErrors((currentListErrors) => currentListErrors.slice(1));
+   };
+   setTimeout(clearFirstError, 10 * 1000);
+  }, [listErrors]);
 
   return (
     <div className="App">

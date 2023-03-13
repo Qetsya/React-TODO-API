@@ -33,6 +33,7 @@ export const TodoForm = ({ onClose, editData }) => {
             } else {
               await postTodo(data);
             }
+            setError();
             onClose?.();
           } catch (error) {
             setError("Could not load Todo list. Please reload the page");

@@ -11,6 +11,7 @@ export const useList = () => {
     try {
       const data = await getList();
       setList(data.documents);
+      setError();
     } catch (_) {
       setError("Could not load Todo list. Please reload the page");
     }
@@ -21,6 +22,7 @@ export const useList = () => {
     try {
     const data = await getList();
     setList(data.documents);
+    setError();
   } catch (_) {
     setError("Could not reload Todo list. Please reload the page");
   }
