@@ -1,5 +1,7 @@
+import { TODO } from "../utils/routes"
+
 export const postTodo = (todo) => {
-    return fetch('https://codeacademy-todo.vercel.app/api/todo?user=nikole', {
+    return fetch(TODO, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -7,5 +9,5 @@ export const postTodo = (todo) => {
         body: JSON.stringify(todo)
     })
         .then((response) => response.json())
-        // .catch(console.error)
+    // .catch(console.error)
 }
