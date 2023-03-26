@@ -3,7 +3,7 @@ import LoginView from "./components/views/LoginView"
 import TodoView from "./components/views/TodoView";
 
 import { CssBaseline } from "@mui/material";
-import {Container} from "@mui/material";
+import { Container } from "@mui/material";
 
 function App() {
   // const [user, setUser] = useState(null);
@@ -11,7 +11,7 @@ function App() {
   return (
     <div className="App">
       <CssBaseline />
-      <Container maxWidth="sm">{false ? <TodoView /> : <LoginView />}</Container>
+      <Container maxWidth="sm">{true ? <TodoView /> : <LoginView />}</Container>
     </div>
   );
 }
