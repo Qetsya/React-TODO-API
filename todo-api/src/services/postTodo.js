@@ -8,6 +8,8 @@ export const postTodo = (todo) => {
         },
         body: JSON.stringify(todo)
     })
-        .then((response) => response.json())
-    // .catch(console.error)
+    .then((res)=> {
+        if(!res.ok) throw new Error("Request failed");
+        return res.json();
+    })
 }

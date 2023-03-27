@@ -8,5 +8,8 @@ export const updateTodo = (todo) => {
         },
         body: JSON.stringify(todo)
     })
-        .then((response) => response.json())
+    .then((res)=> {
+        if(!res.ok) throw new Error("Request failed");
+        return res.json();
+    })
 };

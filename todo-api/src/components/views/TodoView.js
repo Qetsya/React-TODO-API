@@ -12,8 +12,9 @@ import { TodoSkeleton } from "../TodoSkeleton";
 import { Fragment } from "react";
 import Alert from "@mui/material/Alert";
 import { Box } from "@mui/system";
+import { Button } from "@mui/material";
 
-const TodoView = () => {
+const TodoView = ({onLogaut}) => {
   const { list, reloadData, loading, error: loadingError } = useList();
   const { open, onOpen, onClose } = useModal();
   const [editData, setEditData] = useState(null);
@@ -37,6 +38,7 @@ const TodoView = () => {
   return (
     <>
       <Heading title="Todo list" />
+      <Button variant="text" size="sm" onClick={onLogaut}>Logout</Button>
       <AddNewTodo onOpen={onOpen} />
 
       <TodoModal
