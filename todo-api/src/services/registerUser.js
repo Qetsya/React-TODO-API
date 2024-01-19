@@ -1,14 +1,14 @@
-import {REGISTER} from "../utils/routes"
+import { REGISTER } from "../utils/routes";
 
 export const registerUser = (user) => {
-return fetch(REGISTER, {
+  return fetch(REGISTER, {
     method: "POST",
     headers: {
-        "Content-Type": "application/json",
+      "Content-Type": "application/json",
     },
-    body:JSON.stringify(user),
-}).then((res)=> {
-    if(!res.ok) throw new Error("Request failed");
+    body: JSON.stringify(user),
+  }).then((res) => {
+    if (!res.ok) throw new Error("Request failed");
     return res.json();
-})
+  });
 };

@@ -23,5 +23,5 @@ export const useUpdate = ({ id, title, description, onReload, onError }) => {
     }
   };
 
-  return {onComplete, onIncomplete};
+  return { onComplete, onIncomplete };
 };

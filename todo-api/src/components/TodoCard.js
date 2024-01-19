@@ -25,10 +25,8 @@ export const TodoCard = ({
   onError,
 }) => {
   const handleDeleteError = () => {
-    onError(
-      `Could not delete the task by the name of "${title}".`
-    );
-  }
+    onError(`Could not delete the task by the name of "${title}".`);
+  };
   const { openDeleteDialog, closeDeleteDialog, handleDelete, isOpen } =
     useDelete(id, onReload, handleDeleteError);
 

@@ -20,16 +20,16 @@ export const useList = () => {
 
   const handleLoad = async () => {
     try {
-    const data = await getList();
-    setList(data.documents);
-    setError();
-  } catch (_) {
-    setError("Could not reload Todo list. Please reload the page");
-  }
-};
+      const data = await getList();
+      setList(data.documents);
+      setError();
+    } catch (_) {
+      setError("Could not reload Todo list. Please reload the page");
+    }
+  };
 
   useEffect(() => {
-    handleInitialLoad(); //Promise<undefined>
+    handleInitialLoad();
   }, []);
 
   return { list, reloadData: handleLoad, loading, error };

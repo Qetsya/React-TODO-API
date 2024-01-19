@@ -2,6 +2,7 @@ import { useState } from "react";
 import LoginView from "./components/views/LoginView";
 import TodoView from "./components/views/TodoView";
 
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { Container } from "@mui/material";
 
@@ -13,8 +14,8 @@ function App() {
   const [token, setToken] = useState(defaultToken);
 
   return (
-    <div className="App">
-      <CssBaseline />
+    <div>
+      <CssBaseline enableColorScheme />
       <Container maxWidth="sm">
         {token ? (
           <TodoView

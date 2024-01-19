@@ -38,7 +38,6 @@ export const TodoForm = ({ onClose, editData }) => {
           } catch (error) {
             setError("Could not load Todo list. Please reload the page");
           }
-       
         })}
       >
         <Box display="flex" flexDirection="column" gap={3}>

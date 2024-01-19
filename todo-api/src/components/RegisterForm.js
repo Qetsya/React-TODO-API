@@ -5,15 +5,19 @@ import { useForm } from "react-hook-form";
 import { registerUser } from "../services/registerUser";
 import { useState } from "react";
 import { Alert } from "@mui/material";
+import { useValidate } from "./hooks/useValidate";
 
 const RegisterForm = () => {
   const { register, handleSubmit } = useForm();
+  const { isValid } = useValidate();
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
   if (success) {
-    return <Alert severity="success">Register successful! You can now login.</Alert>;
+    return (
+      <Alert severity="success">Register successful! You can now login.</Alert>
+    );
   }
 
   return (
@@ -21,6 +25,11 @@ const RegisterForm = () => {
       onSubmit={handleSubmit(async (formData) => {
         if (formData.password !== formData.passwordRepeat) {
           setError("Password must match!");
+          return;
+        }
+        let emailValidation = await isValid(formData.email);
+        if (!emailValidation) {
+          setError("Invalid email!");
           return;
         }
         try {
@@ -41,7 +50,11 @@ const RegisterForm = () => {
         {error && <Alert severity="error">{error}</Alert>}
         <TextField label="Email" {...register("email")} />
         <TextField type="password" label="Password" {...register("password")} />
-        <TextField type="password" label="Password (repeat)" {...register("passwordRepeat")} />
+        <TextField
+          type="password"
+          label="Password (repeat)"
+          {...register("passwordRepeat")}
+        />
         <Button variant="contained" type="submit">
           {loading ? "loading..." : "Register"}
         </Button>
